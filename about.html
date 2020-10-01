@@ -1,30 +1,100 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="Jacqueline Canett Cactus Picture" content="Cactus Picture">
-      <center>
-<image  src="https://tucson.com/app/images/ua/storm.jpg" width="300px" </center> </a>
-  <h2> Jacqueline Canett </h2>
-</body>
-    <title> <center> About Me </center> </title>
-  </head>
+    <title> About Me </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="site.css">
+    <script src="https://storage.googleapis.com/feednami-static/js/feednami-client-v1.0.1.js"></script>
+    <script>
+    window.onload = function() {
+           displayGreeting();
+           fetchWeather();
+           displayRSSFeed();
+         }
+         function displayGreeting() {
+           var date = new Date();
+           var hour = date.getHours();
+           var description = "";
+           if (hour < 12) {
+             description = "Morning";
+           } else if (hour < 17) {
+             description = "Afternoon";
+           } else {
+             description = "Evening";
+           }
+           document.getElementById("greeting").innerHTML = "Good " + description;
+         }
+
+         function fetchWeather() {
+           fetch("https://api.openweathermap.org/data/2.5/weather?zip=85719,US&appid=b70826d4e9cc6ee24f7bc9379538953e&units=imperial")
+           .then(function(resp) { return resp.json() })
+           .then(function(data) {
+             document.getElementById("weather").innerHTML =
+             "It is currently "+data.main.temp + "&deg; in Tucson, Ariz.";
+           })
+           .catch(function() {
+             document.getElementById("weather").innerHTML = "Error in fetchWeather function";
+           });
+         }
+         function displayRSSFeed() {
+        // fetch an RSS feed and display the title and description
+        var origURL = 'https://tucson.com/search/?f=rss&t=article&c=news/local&l=25&s=start_time&sd=desc';
+        // feednami doesn't like & so replace with %26
+        var replacedURL = origURL.replace(/&/g, "%26");
+        feednami.load(replacedURL,function(result) {
+          if (result.error) {
+            console.log(result.error);
+          } else {
+            var entries = result.feed.entries
+            for (var i = 0; i < entries.length; i++) {
+              var entry = entries[i];
+              let divElement = '<div class="rss_title"><a href="' +entry.link + '" target="_blank">' + entry.title + '</a></div><div class="rss_description">' + entry.description +'</div>';
+              document.getElementById("rss_items").innerHTML += divElement;
+            }
+          }
+        });
+      }
+    </script>
+
+       </head>
   <body>
+    <div id ="greeting"></div>
+    <div id ="weather"></div>
+    <div id ="rss_items"></div>
+    <center>
+      <div class="name_container">
+       Jacqueline Canett
+     </div>
 
-    <table border="1" cellpadding="5">
+     <div class="content_container">
+     <div class="image_container">
+       <img src="media/polo.jpg">
+     </div>
 
-     <tr>
-       <td colspan="2"><center><h3>News Cites</h3></td>
-    </tr>
-    <tr>
-      <td> <a href="https://www.cnn.com" Target=_"blank>CNN</a></td>
-      <td> <a href="https://www.nytimes.com" Target=_blank> NY Times</a></td>
-      </tr>
-      <tr>
-      <td> <a href="https://www.foxnews.com" Target=_blank> Fox News</a></td>
-      <td> <a href="https://abcnews.go.com" target=_blank> ABC News</a></td>
-      </tr>
-      <tr>
-      <td> <a href="https://www.bbc.com/news" target=_blank> BBC News</a></td>
-      <td> <a href="https://tucson.com" target=_blank>Tucson.com</a></td>
-    </tr>
-</table>
+
+     <div class="bio_container">
+       <h3>My Bio</h3>
+       My name is Jacqueline Canett, I am a University of Arizona student majoring in Journalism, and minoring in Spanish.
+       My hobbies include drawing, being with my friends and going to Trader Joes.
+       I am a huge fan of Trader Joes because it has a small selection of everything making it easier for me to find things.
+     </div>
+
+     <div class="clear"></div>
+   </div>
+
+
+      <div class="news_container">
+      <div class="newstitle">News Sites</div>
+      <div class="newssite"><a href="https://www.cnn.com" Target="_blank">CNN</a></div>
+      <div class="newssite"><a href="https://www.nytimes.com" Target="_blank">NY Times</a></div>
+      <div class="newssite"><a href="https://www.foxnews.com" Target="_blank">Fox</a></div>
+      <div class="newssite"><a href="https://abcnews.go.com" Target="_blank">ABC</a></div>
+      <div class="newssite"><a href="https://www.bbc.com" Target="_blank">BBC</a></div>
+      <div class="newssite"><a href="https://www.newsweek.com" Target="_blank">News Week</a></div>
+      <div class="clear"></div>
+    </div>
+
+
+</center>
+  </body>
+</html>
