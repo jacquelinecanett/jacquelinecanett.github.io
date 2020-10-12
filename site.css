@@ -111,3 +111,10 @@ font-weight: lighter;
 .cell_url{
 color: orange;
 }
+
+
+#mapid {
+  height: 640px;
+  width: 640px;
+  border: 2px soild blue;
+}
