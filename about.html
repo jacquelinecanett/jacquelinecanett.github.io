@@ -16,7 +16,6 @@
            displayGreeting();
            fetchWeather();
            displayRSSFeed();
-           listSheet();
            var mymap = drawMap();
            listSheet(mymap);
          }
@@ -63,29 +62,8 @@
           }
         });
       }
-      function listSheet(mymap) {
-        fetch('https://api.sheetson.com/v2/sheets/Sheet1?no-cache=true', {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 1r4ZvFs_dBpyiNrvi1_E4XWJW5tqgYHalEd0ozVg4FCAGtljn4h1JHDid-LZ6A',
-            'X-Sheetson-Spreadsheet-Id': '1YDVG4tiIexUt_a1HtProssldpDRjoYtGThZ1EewR8F0'
-          }
-        })
-        .then(function(resp) { return resp.json() })
-        .then(function(data) {
-          for (var i = 0; i < data.results.length; i++) {
-            var result = data.results[i];
-            let divElement = '<div class="cell">' + '<div class="cell_name">' + result.name + '</div>' + '<div class="cell_address">' + result.address + '</div>' + '<div class="cell_url"><a href="' + result.url + '">' + result.url + '</a></div>' + '<div class="cell_phone">' + result.phone + '</div>' + '</div>';
-            document.getElementById("sheet").innerHTML += divElement;
-          }
-        })
-        .catch(function() {
-          document.getElementById("sheet").innerHTML = "Error in listSheet function";
-        });
-
       function drawMap() {
-          var mymap = L.map('mapid').setView([32.231840, -110.953579], 15);
+          var mymap = L.map('mapid').setView([32.231840, -110.953579], 11);
           L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
           maxZoom: 18,
@@ -96,7 +74,7 @@
       }).addTo(mymap);
 
       return mymap;
-  };
+  }
         function addPin(mymap, lat, lon, name) {
           L.marker([lat, lon]).addTo(mymap).bindPopup(name);
       }
@@ -107,7 +85,7 @@
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 57sM40YM3d0TqVAsf6e4kyiG-CsXYPp2J2vobn-Nh4-dCW_vZ7to1VAmLlCmQg',
-        'X-Sheetson-Spreadsheet-Id': '1TiC_Y3SzuGTT0uaNlfo0Q_VAjH0Uujv1ucHOVb44s5g'
+        'X-Sheetson-Spreadsheet-Id': '1YDVG4tiIexUt_a1HtProssldpDRjoYtGThZ1EewR8F0'
       }
       })
       .then(function(resp) { return resp.json() })
@@ -118,13 +96,12 @@
         document.getElementById("sheet").innerHTML += divElement;
 
 
-        addPin(mymap, result.lat, result.lon, '<strong>' + result.name + '</strong>');
+       addPin(mymap, result.lat, result.lon, '<strong>' + result.name + '</strong>');
       }
       })
       .catch(function() {
       document.getElementById("sheet").innerHTML = "Error in listSheet function";
       });
-      }
       }
     </script>
 
