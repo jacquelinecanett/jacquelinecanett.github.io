@@ -1,0 +1,32 @@
+.box {
+  background-color: #900C3F;
+width: 300px;
+border: 15px solid black;
+padding: 50px;
+margin: 20px;
+}
+h1 {
+  color: #154360;
+  margin-left: 20px;
+  font-family: "Times New Roman", Times, serif;
+   font-size: 40px;
+}
+h2 {
+  color: #2C3E50;
+   font-size: 30px;
+   font-family: "Georgia", georgia, serif;
+}
+h4 {
+  color: #FDFEFE  ;
+}
+h5 {
+  color: #2E4053  ;
+  font-family: "Georgia", georgia, serif;
+}
+.center {
+  text-align: center;
+  border: 5px solid black;
+}
+body {
+  color: #515A5A;
+}
